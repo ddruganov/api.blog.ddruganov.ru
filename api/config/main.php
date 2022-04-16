@@ -1,5 +1,7 @@
 <?php
 
+use api\components\AccessTokenProviderInterface;
+use api\components\HeaderAccessTokenProvider;
 use yii\helpers\ArrayHelper;
 
 return ArrayHelper::merge(
@@ -13,8 +15,10 @@ return ArrayHelper::merge(
                 'enablePrettyUrl' => true,
                 'showScriptName' => false,
                 'enableStrictParsing' => true,
-                'rules' => require 'routes.php'
-            ]
+                'rules' => require 'routes.php',
+                'cache' => false
+            ],
+            AccessTokenProviderInterface::class => HeaderAccessTokenProvider::class
         ],
         'params' => require 'params.php',
     ],

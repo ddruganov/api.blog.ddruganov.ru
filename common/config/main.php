@@ -1,5 +1,7 @@
 <?php
 
+use common\components\auth\AuthService;
+use common\components\auth\AuthServiceInterface;
 use yii\helpers\ArrayHelper;
 use yii\log\FileTarget;
 
@@ -20,6 +22,7 @@ return ArrayHelper::merge(
                     ]
                 ],
             ],
+            AuthServiceInterface::class => AuthService::class
         ],
         'params' => require 'params.php',
     ],

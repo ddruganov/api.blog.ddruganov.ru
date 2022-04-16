@@ -1,34 +1,41 @@
 version: "3.8"
 
+networks:
+    ddruganovru:
+        external: true
+
 services:
-  nginx:
-    container_name: api.todo.ddruganov.ru.nginx
-    ports:
-      - 2010:8080
-    image: nginx:stable-alpine
-    volumes:
-      - ./:/app
-      - ./docker/nginx:/etc/nginx/conf.d
-    depends_on:
-      - php
+    api.todo.ddruganov.ru.nginx:
+        networks:
+            - ddruganovru
+        ports:
+            - 2010:2010
+        image: nginx:stable-alpine
+        volumes:
+            - ./:/app
+            - ./docker/nginx:/etc/nginx/conf.d
+        depends_on:
+            - php
 
-  php:
-    container_name: api.todo.ddruganov.ru.php
-    build: ./docker/php
-    volumes:
-      - ./:/app
-    depends_on:
-      - db
-    restart: unless-stopped
+    api.todo.ddruganov.ru.php:
+        networks:
+            - ddruganovru
+        build: ./docker/php
+        volumes:
+            - ./:/app
+        depends_on:
+            - db
+        restart: unless-stopped
 
-  db:
-    container_name: api.todo.ddruganov.ru.db
-    build: ./docker/postgres
-    ports:
-      - 2011:5432
-    restart: always
-    volumes:
-      - api.todo.ddruganov.ru.db-data:/var/lib/postgresql/data
+    api.todo.ddruganov.ru.db:
+        networks:
+            - ddruganovru
+        build: ./docker/postgres
+        ports:
+            - 2011:5432
+        restart: always
+        volumes:
+            - api.todo.ddruganov.ru.db-data:/var/lib/postgresql/data
 
 volumes:
-  api.todo.ddruganov.ru.db-data:
+    api.todo.ddruganov.ru.db-data:
