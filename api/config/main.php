@@ -1,7 +1,11 @@
 <?php
 
-use api\components\AccessTokenProviderInterface;
-use api\components\HeaderAccessTokenProvider;
+use ddruganov\Yii2ApiAuthProxy\components\AccessTokenProviderInterface;
+use ddruganov\Yii2ApiAuthProxy\components\AuthService;
+use ddruganov\Yii2ApiAuthProxy\components\AuthServiceInterface;
+use ddruganov\Yii2ApiAuthProxy\components\AuthServiceRequestInterface;
+use ddruganov\Yii2ApiAuthProxy\components\GuzzleAuthServiceRequest;
+use ddruganov\Yii2ApiAuthProxy\components\HeaderAccessTokenProvider;
 use yii\helpers\ArrayHelper;
 
 return ArrayHelper::merge(
@@ -18,7 +22,9 @@ return ArrayHelper::merge(
                 'rules' => require 'routes.php',
                 'cache' => false
             ],
-            AccessTokenProviderInterface::class => HeaderAccessTokenProvider::class
+            AccessTokenProviderInterface::class => HeaderAccessTokenProvider::class,
+            AuthServiceInterface::class => AuthService::class,
+            AuthServiceRequestInterface::class => GuzzleAuthServiceRequest::class
         ],
         'params' => require 'params.php',
     ],
