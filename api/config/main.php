@@ -1,11 +1,12 @@
 <?php
 
+use api\components\AuthService;
 use ddruganov\Yii2ApiAuthProxy\components\AccessTokenProviderInterface;
-use ddruganov\Yii2ApiAuthProxy\components\AuthService;
 use ddruganov\Yii2ApiAuthProxy\components\AuthServiceInterface;
 use ddruganov\Yii2ApiAuthProxy\components\AuthServiceRequestInterface;
 use ddruganov\Yii2ApiAuthProxy\components\GuzzleAuthServiceRequest;
 use ddruganov\Yii2ApiAuthProxy\components\HeaderAccessTokenProvider;
+use ddruganov\Yii2ApiAuthProxy\http\controllers\AuthController;
 use yii\helpers\ArrayHelper;
 
 return ArrayHelper::merge(
@@ -25,6 +26,9 @@ return ArrayHelper::merge(
             AccessTokenProviderInterface::class => HeaderAccessTokenProvider::class,
             AuthServiceInterface::class => AuthService::class,
             AuthServiceRequestInterface::class => GuzzleAuthServiceRequest::class
+        ],
+        'controllerMap' => [
+            'auth' => AuthController::class
         ],
         'params' => require 'params.php',
     ],
