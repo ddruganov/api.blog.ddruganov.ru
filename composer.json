@@ -13,7 +13,7 @@
         "yiisoft/yii2": "^2",
         "ddruganov/yii2-api-essentials": "^1",
         "guzzlehttp/guzzle": "^7.4",
-        "ddruganov/yii2-api-auth-proxy": "^0.1.0"
+        "ddruganov/yii2-api-auth-proxy": "^0"
     },
     "config": {
         "process-timeout": 1800,
